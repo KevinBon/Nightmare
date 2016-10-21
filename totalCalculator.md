@@ -19,6 +19,10 @@
 ```
 
 ```js
+var curTotal = 0;
+var subtotalA = 0;
+var subtotalB = 0;
+var subtotalC = 0;
 $('div.form-horizontal *').filter(':input').each(function(){
   if(!isNaN(this.value)){ // if is number -> true
     if(/\d+_price/.test(this.id)) {
