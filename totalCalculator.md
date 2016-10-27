@@ -19,26 +19,47 @@
 ```
 
 ```js
-var curTotal = 0;
-var subtotalA = 0;
-var subtotalB = 0;
-var subtotalC = 0;
-$('div.form-horizontal *').filter(':input').each(function(){
-  if(!isNaN(this.value)){ // if is number -> true
-    if(/\d+_price/.test(this.id)) {
-      if (!$(this).hasClass( "package" )) {
-        curTotal += parseFloat(this.value);
-      }
-    }
-    if($(this).hasClass("dataGroupA")){
-      subtotalA += parseFloat(this.value);
-    }
-    if($(this).hasClass("dataGroupB")){
-      subtotalB += parseFloat(this.value);
-    }
-    if($(this).hasClass("dataGroupC")){
-      subtotalC += parseFloat(this.value);
-    }
-  }
+fncUpdateRunningTotal: function(){
+		var curTotal = 0;
+		var subtotalA = 0;
+		var subtotalB = 0;
+		var subtotalC = 0;
+		$('div.form-horizontal *').filter(':input').each(function(){
+			if(this.value != '' && this.value != 'Y' && this.value != 'y' && this.value != 'N' && this.value != 'n' && this.value != 0){
+				if(/\d+_price/.test(this.id)) {
+					if (!$(this).hasClass( "package" )) {
+						curTotal += parseFloat(this.value || 0);
+					}
+				}
+				if($(this).hasClass("dataGroupA")){
+					subtotalA += parseFloat(this.value || 0);
+				}
+				if($(this).hasClass("dataGroupB")){
+					subtotalB += parseFloat(this.value || 0);
+				}
+				if($(this).hasClass("dataGroupC")){
+					subtotalC += parseFloat(this.value || 0);
+				}
+			}
+		});
+		if(curTotal != 0){
+			$("#jsCalcTotal").html("Total: $"+ curTotal.toFixed(2));
+		}
+		if(subtotalA == 0){
+			$("#A_subtotal").html("");
+		}else{
+			$("#A_subtotal").html(" $"+ subtotalA.toFixed(2));
+		}
+		if(subtotalB == 0){
+			$("#B_subtotal").html("");
+		}else{
+			$("#B_subtotal").html(" $"+ subtotalB.toFixed(2));
+		}
+		if(subtotalC == 0){
+			$("#C_subtotal").html("");
+		}else{
+			$("#C_subtotal").html(" $"+ subtotalC.toFixed(2));
+		}
+	},
 });
 ```
